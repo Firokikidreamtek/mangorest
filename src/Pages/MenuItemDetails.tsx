@@ -16,7 +16,7 @@ function MenuItemDetails() {
 
   const handleQuantity = (counter: number) => {
     let newQuantity = quantity + counter;
-    if (newQuantity == 0) {
+    if (newQuantity === 0) {
       newQuantity = 1;
     }
     setQuantity(newQuantity);
@@ -26,13 +26,11 @@ function MenuItemDetails() {
   const handleAddToCart = async (menuItemId: number) => {
     setIsAddingToCart(true);
 
-    const response = await updateShoppingCart({
+    await updateShoppingCart({
       menuItemId: menuItemId,
       updateQuantityBy: quantity,
       userId: "b7ae37bf-09b1-4b47-9ce1-c963031d2920",
     });
-
-    console.log(response);
 
     setIsAddingToCart(false);
   };
