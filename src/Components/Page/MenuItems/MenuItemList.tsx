@@ -16,7 +16,7 @@ function MenuItemList() {
     if (!isLoading) {
       dispatch(setMenuItem(data.result));
     }
-  }, [isLoading]);
+  }, [dispatch, data, isLoading]);
 
   if (isLoading) {
     return <MainLoader />;

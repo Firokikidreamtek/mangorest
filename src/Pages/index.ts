@@ -7,8 +7,12 @@ import Login from "./Login";
 import AuthenticationTest from "./AuthenticationTest";
 import AuthenticationTestAdmin from "./AuthenticationTestAdmin";
 import AccessDenied from "./AccessDenied";
+import Payment from "./Payment";
+import OrderConfirmed from "./Order/OrderConfirmed";
+
 
 export {
+  Payment,
   Home,
   NotFound,
   MenuItemDetails,
@@ -17,6 +21,7 @@ export {
   Register,
   AuthenticationTest,
   AuthenticationTestAdmin,
+  OrderConfirmed,
   AccessDenied,
 };
 
