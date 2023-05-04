@@ -7,11 +7,15 @@ import {
   Home,
   Login,
   MenuItemDetails,
+  MyOrders,
   NotFound,
+  OrderDetails,
   OrderConfirmed,
   Payment,
   Register,
   ShoppingCart,
+  AllOrders,
+  MenuItemList,
 } from "../Pages";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,6 +72,10 @@ function App() {
             path="order/orderconfirmed/:id"
             element={<OrderConfirmed />}
           ></Route>
+          <Route path="/order/myOrders" element={<MyOrders />} />
+          <Route path="/order/orderDetails/:id" element={<OrderDetails />} />
+          <Route path="/order/allOrders" element={<AllOrders />} />
+          <Route path="/menuItem/menuitemlist" element={<MenuItemList />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </div>
