@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer, Header } from "../Components/Layout";
 import {
   AccessDenied,
@@ -16,6 +16,7 @@ import {
   ShoppingCart,
   AllOrders,
   MenuItemList,
+  MenuItemUpsert
 } from "../Pages";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,16 +29,12 @@ import { RootState } from "../Storage/Redux/store";
 
 function App() {
   const dispatch = useDispatch();
-
+  const [skip, setSkip] = useState(true);
   const userData = useSelector((state: RootState) => state.userAuthStore);
-  const { data, isLoading } = useGetShoppingCartQuery(userData.id);
-
-  useEffect(() => {
-    if (!isLoading) {
-      dispatch(setShoppingCart(data.result?.cartItems));
-    }
-  }, [data, isLoading, dispatch]);
-
+  const { data, isLoading } = useGetShoppingCartQuery(userData.id, {
+    skip: skip,
+  });
+  
   useEffect(() => {
     const localToken = localStorage.getItem("token");
     if (localToken) {
@@ -45,6 +42,17 @@ function App() {
       dispatch(setLoggedInUser({ fullName, id, email, role }));
     }
   }, [dispatch]);
+  
+  useEffect(() => {
+    if (!isLoading && data) {
+      dispatch(setShoppingCart(data.result?.cartItems));
+    }
+  }, [data, isLoading, dispatch]);
+
+  useEffect(() => {
+    if (userData.id) setSkip(false);
+  }, [userData]);
+
   return (
     <div>
       <Header />
@@ -76,6 +84,11 @@ function App() {
           <Route path="/order/orderDetails/:id" element={<OrderDetails />} />
           <Route path="/order/allOrders" element={<AllOrders />} />
           <Route path="/menuItem/menuitemlist" element={<MenuItemList />} />
+          <Route
+            path="/menuItem/menuItemUpsert/:id"
+            element={<MenuItemUpsert />}
+          />
+          <Route path="/menuItem/menuItemUpsert" element={<MenuItemUpsert />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </div>
